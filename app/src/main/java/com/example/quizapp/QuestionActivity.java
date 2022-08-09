@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,6 +43,7 @@ public class QuestionActivity  extends AppCompatActivity {
     private DrawerLayout drawer;
     private GridView ques_List_gv;
     private QuestionGridAdapter gridAdapter;
+    private CountDownTimer timer;
 
 
     @Override
@@ -88,6 +90,8 @@ public class QuestionActivity  extends AppCompatActivity {
         quesID_tv.setText("1/"+String.valueOf(dbQuery.g_questionList.size()));
         catName_tv.setText(dbQuery.g_catList.get(dbQuery.g_selectedCatIndex).getName());
 
+        g_questionList.get(0).setStatus(UNANSWERED);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +117,12 @@ public class QuestionActivity  extends AppCompatActivity {
                 if(dbQuery.g_questionList.get(QuesID).getStatus() == NOT_VISITED){
                     g_questionList.get(QuesID).setStatus(UNANSWERED);
                 }
+                if(g_questionList.get(QuesID).getStatus() == REVIEW){
+                     markImg.setVisibility(View.VISIBLE);
+                }else{
+                    markImg.setVisibility(View.GONE);
+                }
                 quesID_tv.setText(String.valueOf(QuesID+1)+"/"+String.valueOf(dbQuery.g_questionList.size()));
-
             }
 
             @Override
@@ -146,6 +154,8 @@ public class QuestionActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dbQuery.g_questionList.get(QuesID).setSelectedAns(-1);
+                g_questionList.get(QuesID).setStatus(UNANSWERED);
+                markImg.setVisibility(View.GONE);
                 quesAdapter.notifyDataSetChanged();
             }
         });
@@ -185,11 +195,50 @@ public class QuestionActivity  extends AppCompatActivity {
                 }
             }
         });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitTest();
+            }
+        });
+    }
+
+    private void submitTest(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
+        builder.setCancelable(true);
+
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_layout,null);
+        Button submit = view.findViewById(R.id.submit_button);
+        Button cancel = view.findViewById(R.id.cancel_button);
+
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer.cancel();
+                alertDialog.dismiss();
+                Intent intent = new Intent(QuestionActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
     private void startTimer() {
         long totaltime = dbQuery.g_testList.get(dbQuery.g_SelectedTestIndex).getTime()*60*1000;
         Log.d("TimerTime", String.valueOf(totaltime));
-        CountDownTimer timer = new CountDownTimer(totaltime + 1000,1000) {
+        timer = new CountDownTimer(totaltime + 1000,1000) {
             @Override
             public void onTick(long remainingTime) {
 
@@ -202,7 +251,9 @@ public class QuestionActivity  extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-
+                Intent intent = new Intent(QuestionActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
             }
         };
         timer.start();
