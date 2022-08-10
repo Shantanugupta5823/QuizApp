@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:padding="16dp"
+
     >
     <TextView
         android:id="@+id/alertTitle"
@@ -22,6 +23,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+
         />
     <View
         android:id="@+id/divider"
@@ -64,6 +66,7 @@
         android:text="SUBMIT"
         android:layout_marginTop="32dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/round_corner"
         android:backgroundTint="@color/light_blue"
 
@@ -80,7 +83,6 @@
         android:layout_marginLeft="16dp"
         android:background="@drawable/round_corner"
         android:backgroundTint="@color/light_blue"
-
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

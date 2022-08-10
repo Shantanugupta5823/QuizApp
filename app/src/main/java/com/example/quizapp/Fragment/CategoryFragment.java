@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Fragment;
 
 import android.os.Bundle;
 
@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.quizapp.Adapter.CategoryAdapter;
+import com.example.quizapp.R;
+import com.example.quizapp.DataBase.dbQuery;
 
 public class CategoryFragment extends Fragment {
 

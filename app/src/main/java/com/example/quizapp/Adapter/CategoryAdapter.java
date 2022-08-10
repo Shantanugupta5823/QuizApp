@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.quizapp.R;
+import com.example.quizapp.TestActivity;
+import com.example.quizapp.DataBase.dbQuery;
+import com.example.quizapp.model.categoryModel;
 
 import java.util.List;
 
@@ -45,7 +50,7 @@ public class CategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 dbQuery.g_selectedCatIndex = position;
-                Intent intent = new Intent(view.getContext(),TestActivity.class);
+                Intent intent = new Intent(view.getContext(), TestActivity.class);
                 view.getContext().startActivity(intent);
             }
         });

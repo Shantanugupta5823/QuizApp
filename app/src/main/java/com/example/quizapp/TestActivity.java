@@ -7,19 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
+import com.example.quizapp.Adapter.TestAdapter;
+import com.example.quizapp.DataBase.dbQuery;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -35,10 +30,8 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         toolbar = findViewById(R.id.toolbar2);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
         getSupportActionBar().setTitle(dbQuery.g_catList.get(dbQuery.g_selectedCatIndex).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -60,9 +53,21 @@ public class TestActivity extends AppCompatActivity {
         dbQuery.loadTestData(new myCompleteListner() {
             @Override
             public void onSuccess() {
-                TestAdapter adapter = new TestAdapter(dbQuery.g_testList);
-                testRecycle.setAdapter(adapter);
-                progressDialog.dismiss();
+                dbQuery.loadMyScore(new myCompleteListner() {
+                    @Override
+                    public void onSuccess() {
+                        TestAdapter adapter = new TestAdapter(dbQuery.g_testList);
+                        testRecycle.setAdapter(adapter);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        progressDialog.dismiss();
+                        Toast.makeText(TestActivity.this,"Something Went Wrong, Please try Again Later.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             @Override
             public void onFailure() {
@@ -72,7 +77,6 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

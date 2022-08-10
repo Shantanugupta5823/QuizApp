@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.R;
+import com.example.quizapp.StartTestActivity;
+import com.example.quizapp.DataBase.dbQuery;
+import com.example.quizapp.model.TestModel;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -17,7 +22,7 @@ import java.util.List;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
    private List<TestModel> testList;
-    TestAdapter(List<TestModel> testList){
+    public TestAdapter(List<TestModel> testList){
         this.testList = testList;
     }
     @NonNull
@@ -60,7 +65,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(),StartTestActivity.class);
+                    Intent intent = new Intent(itemView.getContext(), StartTestActivity.class);
                     dbQuery.g_SelectedTestIndex = position;
                     itemView.getContext().startActivity(intent);
                 }

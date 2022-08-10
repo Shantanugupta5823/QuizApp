@@ -1,24 +1,26 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.R;
+import com.example.quizapp.DataBase.dbQuery;
+import com.example.quizapp.model.QuestionModel;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.example.quizapp.dbQuery.ANSWERED;
-import static com.example.quizapp.dbQuery.REVIEW;
-import static com.example.quizapp.dbQuery.UNANSWERED;
-import static com.example.quizapp.dbQuery.g_questionList;
+import static com.example.quizapp.DataBase.dbQuery.ANSWERED;
+import static com.example.quizapp.DataBase.dbQuery.REVIEW;
+import static com.example.quizapp.DataBase.dbQuery.UNANSWERED;
+import static com.example.quizapp.DataBase.dbQuery.g_questionList;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.viewHolder> {
 

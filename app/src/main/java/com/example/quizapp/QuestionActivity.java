@@ -21,15 +21,21 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import com.example.quizapp.Adapter.QuestionGridAdapter;
+import com.example.quizapp.Adapter.QuestionsAdapter;
+import com.example.quizapp.DataBase.dbQuery;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.example.quizapp.dbQuery.ANSWERED;
-import static com.example.quizapp.dbQuery.NOT_VISITED;
-import static com.example.quizapp.dbQuery.REVIEW;
-import static com.example.quizapp.dbQuery.UNANSWERED;
-import static com.example.quizapp.dbQuery.g_questionList;
+import static com.example.quizapp.DataBase.dbQuery.ANSWERED;
+import static com.example.quizapp.DataBase.dbQuery.NOT_VISITED;
+import static com.example.quizapp.DataBase.dbQuery.REVIEW;
+import static com.example.quizapp.DataBase.dbQuery.UNANSWERED;
+import static com.example.quizapp.DataBase.dbQuery.g_SelectedTestIndex;
+import static com.example.quizapp.DataBase.dbQuery.g_questionList;
+import static com.example.quizapp.DataBase.dbQuery.g_testList;
 
 public class QuestionActivity  extends AppCompatActivity {
 
@@ -44,6 +50,7 @@ public class QuestionActivity  extends AppCompatActivity {
     private GridView ques_List_gv;
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
+    private long timeLeft;
 
 
     @Override
@@ -221,6 +228,8 @@ public class QuestionActivity  extends AppCompatActivity {
                 timer.cancel();
                 alertDialog.dismiss();
                 Intent intent = new Intent(QuestionActivity.this,ScoreActivity.class);
+                long totalTime = g_testList.get(g_SelectedTestIndex).getTime()*60*1000;
+                intent.putExtra("Time Taken",totalTime-timeLeft);
                 startActivity(intent);
                 QuestionActivity.this.finish();
 
@@ -242,16 +251,18 @@ public class QuestionActivity  extends AppCompatActivity {
             @Override
             public void onTick(long remainingTime) {
 
+                    timeLeft = remainingTime;
                     String time = String.format("%02d:%02d min"
                             , TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                             TimeUnit.MILLISECONDS.toSeconds(remainingTime) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
                     timer_tv.setText(time);
-
             }
             @Override
             public void onFinish() {
                 Intent intent = new Intent(QuestionActivity.this,ScoreActivity.class);
+                long totalTime = g_testList.get(g_SelectedTestIndex).getTime()*60*1000;
+                intent.putExtra("Time Taken",totalTime-timeLeft);
                 startActivity(intent);
                 QuestionActivity.this.finish();
             }

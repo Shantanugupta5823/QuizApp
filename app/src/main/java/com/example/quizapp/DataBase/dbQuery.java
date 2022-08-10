@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.DataBase;
 
 import android.util.ArrayMap;
 import android.util.Log;
@@ -6,6 +6,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.quizapp.model.QuestionModel;
+import com.example.quizapp.model.RankModel;
+import com.example.quizapp.model.TestModel;
+import com.example.quizapp.model.categoryModel;
+import com.example.quizapp.model.profileModel;
+import com.example.quizapp.myCompleteListner;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +21,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +38,7 @@ public class dbQuery {
     public static int g_SelectedTestIndex = 0;
     public static int g_selectedCatIndex = 0;
     public static profileModel myProfile = new profileModel("NA",null);
-
+    public static RankModel myPerformance = new RankModel(0,-1);
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
     public static final int ANSWERED = 2;
@@ -137,6 +144,7 @@ public class dbQuery {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         myProfile.setName(documentSnapshot.getString("Name"));
                         myProfile.setEmail(documentSnapshot.getString("Email_ID"));
+                        myPerformance.setScore(documentSnapshot.getLong("Top_Score").intValue());
                         completeListner.onSuccess();
                     }
                 })
@@ -191,6 +199,60 @@ public class dbQuery {
                     }
                 });
 
+    }
+
+    public static void loadMyScore(myCompleteListner completeListner){
+        g_firestore.collection("User").document(FirebaseAuth.getInstance().getUid())
+                .collection("USER_DATA").document("MY_SCORES")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        for(int i = 0; i<g_testList.size(); i++){
+                            int top = 0;
+                            if(documentSnapshot.get(g_testList.get(i).getTestId()) != null){
+                                top = documentSnapshot.getLong(g_testList.get(i).getTestId()).intValue();
+                            }
+                            g_testList.get(i).setTopScore(top);
+                        }
+                        completeListner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        completeListner.onFailure();
+                    }
+                });
+    }
+
+    public static void saveResult(int score, myCompleteListner completeListner){
+        WriteBatch batch = g_firestore.batch();
+        DocumentReference userDoc = g_firestore.collection("User").document(FirebaseAuth.getInstance().getUid());
+        batch.update(userDoc,"Top_Score",score);
+
+        if(score > g_testList.get(g_SelectedTestIndex).getTopScore()){
+            DocumentReference scoreDoc = userDoc.collection("USER_DATA").document("MY_SCORES");
+            Map<String, Object> testData = new ArrayMap<>();
+            testData.put(g_testList.get(g_SelectedTestIndex).getTestId(),score);
+            batch.set(scoreDoc,testData, SetOptions.merge());
+
+        }
+        batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                if(score > g_testList.get(g_SelectedTestIndex).getTopScore()){
+                    g_testList.get(g_SelectedTestIndex).setTopScore(score);
+                }
+                myPerformance.setScore(score);
+                completeListner.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                completeListner.onFailure();
+            }
+        });
     }
 
 }

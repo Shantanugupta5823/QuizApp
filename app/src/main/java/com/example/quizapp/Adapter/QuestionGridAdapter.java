@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import static com.example.quizapp.dbQuery.ANSWERED;
-import static com.example.quizapp.dbQuery.NOT_VISITED;
-import static com.example.quizapp.dbQuery.REVIEW;
-import static com.example.quizapp.dbQuery.UNANSWERED;
+import com.example.quizapp.QuestionActivity;
+import com.example.quizapp.R;
+import com.example.quizapp.DataBase.dbQuery;
+
+import static com.example.quizapp.DataBase.dbQuery.ANSWERED;
+import static com.example.quizapp.DataBase.dbQuery.NOT_VISITED;
+import static com.example.quizapp.DataBase.dbQuery.REVIEW;
+import static com.example.quizapp.DataBase.dbQuery.UNANSWERED;
 
 public class  QuestionGridAdapter extends BaseAdapter {
 

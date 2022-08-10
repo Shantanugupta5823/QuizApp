@@ -3,7 +3,6 @@ package com.example.quizapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.quizapp.dbQuery.g_catList;
-import static com.example.quizapp.dbQuery.g_testList;
+import com.example.quizapp.DataBase.dbQuery;
+
+import static com.example.quizapp.DataBase.dbQuery.g_catList;
+import static com.example.quizapp.DataBase.dbQuery.g_testList;
 
 public class StartTestActivity extends AppCompatActivity {
     private Button startTestButton;

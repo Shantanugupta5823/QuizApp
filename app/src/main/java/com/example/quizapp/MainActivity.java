@@ -1,17 +1,21 @@
 package com.example.quizapp;
 
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Menu;
+
+
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+
+import com.example.quizapp.DataBase.dbQuery;
+import com.example.quizapp.Fragment.AccountFragment;
+import com.example.quizapp.Fragment.CategoryFragment;
+import com.example.quizapp.Fragment.LeaderBoardFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.snackbar.Snackbar;
+
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -19,14 +23,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
+ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quizapp.databinding.ActivityMainBinding;
+
 
 import org.jetbrains.annotations.NotNull;
 

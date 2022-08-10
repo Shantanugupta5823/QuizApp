@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.quizapp.LoginActivity;
+import com.example.quizapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -51,7 +53,7 @@ public class AccountFragment extends Fragment {
 //                    @Override
 //                    public void onComplete(@NonNull @NotNull Task<Void> task) {
 
-                        Intent intent = new Intent(getContext(),LoginActivity.class);
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
