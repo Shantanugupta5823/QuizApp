@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.quizapp.LoginActivity;
 import com.example.quizapp.R;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AccountFragment extends Fragment {
 
-    private Button logoutButton;
+    private LinearLayout logoutButton;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -36,7 +37,7 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        logoutButton = view.findViewById(R.id.account_signout);
+        logoutButton = view.findViewById(R.id.logoutB);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
