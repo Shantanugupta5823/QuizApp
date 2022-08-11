@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.quizapp.Adapter.CategoryAdapter;
+import com.example.quizapp.MainActivity;
 import com.example.quizapp.R;
 import com.example.quizapp.DataBase.dbQuery;
 
@@ -26,6 +27,8 @@ public class CategoryFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_category, container, false);
         CatView = view.findViewById(R.id.categoryGrid);
 
+        androidx.appcompat.widget.Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Categories");
         CategoryAdapter adapter = new CategoryAdapter(dbQuery.g_catList);
         CatView.setAdapter(adapter);
 

@@ -17,4 +17,6 @@
     <color name="pink">#F704E1</color>
     <color name="light_blue">#ADD8E6</color>
     <color name ="super_light_blue">#DBF3FA</color>
+    <color name="ghost_white">#f8f8ff</color>
+    <color name="light_gery">#dcdcdc</color>
 </resources>
