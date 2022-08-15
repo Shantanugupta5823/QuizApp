@@ -60,7 +60,6 @@ public class TestActivity extends AppCompatActivity {
                         testRecycle.setAdapter(adapter);
                         progressDialog.dismiss();
                     }
-
                     @Override
                     public void onFailure() {
                         progressDialog.dismiss();

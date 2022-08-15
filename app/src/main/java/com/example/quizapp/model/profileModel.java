@@ -4,10 +4,12 @@ public class profileModel {
 
     private String name;
     private String email;
+    private String phoneNo;
 
-    public profileModel(String name, String email) {
+    public profileModel(String name, String email, String phoneNo) {
         this.name = name;
         this.email = email;
+        this.phoneNo = phoneNo;
     }
 
     public String getName() {
@@ -24,5 +26,13 @@ public class profileModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }
