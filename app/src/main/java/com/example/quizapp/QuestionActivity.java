@@ -78,16 +78,20 @@ public class QuestionActivity  extends AppCompatActivity {
 
     private void init(){
         questionView = findViewById(R.id.quesView);
+
         quesID_tv = findViewById(R.id.topBar_quesNo);
         timer_tv = findViewById(R.id.topBar_timer);
-        catName_tv = findViewById(R.id.middleBar_SubjectName);
         submitButton = findViewById(R.id.topBar_submitButton);
-        markForReviewButton = findViewById(R.id.bottomBar_markForReview);
-        clearSelectionButton = findViewById(R.id.bottomBar_clearSelection);
+
+        catName_tv = findViewById(R.id.middleBar_SubjectName);
         bookmark = findViewById(R.id.middleBar_bookmark);
         queGrid = findViewById(R.id.middleBar_quesLayout);
+
+        markForReviewButton = findViewById(R.id.bottomBar_markForReview);
+        clearSelectionButton = findViewById(R.id.bottomBar_clearSelection);
         prev_button = findViewById(R.id.bottomBar_prevQue);
         next_button = findViewById(R.id.bottomBar_nextQue);
+
         drawer = findViewById(R.id.drawer_layout);
         drawerCloseButton = findViewById(R.id.drawer_close_btn);
         markImg = findViewById(R.id.mark_image);
@@ -96,6 +100,11 @@ public class QuestionActivity  extends AppCompatActivity {
 
         quesID_tv.setText("1/"+String.valueOf(dbQuery.g_questionList.size()));
         catName_tv.setText(dbQuery.g_catList.get(dbQuery.g_selectedCatIndex).getName());
+        if(g_questionList.get(0).isBookMarked()){
+            bookmark.setImageResource(R.drawable.ic_filled_bookmark);
+        }else{
+            bookmark.setImageResource(R.drawable.ic_bookmark);
+        }
 
         g_questionList.get(0).setStatus(UNANSWERED);
 
@@ -130,6 +139,12 @@ public class QuestionActivity  extends AppCompatActivity {
                     markImg.setVisibility(View.GONE);
                 }
                 quesID_tv.setText(String.valueOf(QuesID+1)+"/"+String.valueOf(dbQuery.g_questionList.size()));
+
+                if(g_questionList.get(QuesID).isBookMarked()){
+                    bookmark.setImageResource(R.drawable.ic_filled_bookmark);
+                }else{
+                    bookmark.setImageResource(R.drawable.ic_bookmark);
+                }
             }
 
             @Override
@@ -209,6 +224,23 @@ public class QuestionActivity  extends AppCompatActivity {
                 submitTest();
             }
         });
+
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToBookMark();
+            }
+        });
+    }
+
+    private void addToBookMark() {
+        if(g_questionList.get(QuesID).isBookMarked()){
+            g_questionList.get(QuesID).setBookMarked(false);
+            bookmark.setImageResource(R.drawable.ic_bookmark);
+        }else{
+            g_questionList.get(QuesID).setBookMarked(true);
+            bookmark.setImageResource(R.drawable.ic_filled_bookmark);
+        }
     }
 
     private void submitTest(){

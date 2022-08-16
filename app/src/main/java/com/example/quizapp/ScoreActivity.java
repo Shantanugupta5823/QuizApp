@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.quizapp.DataBase.dbQuery;
 import com.example.quizapp.Fragment.LeaderBoardFragment;
+import com.example.quizapp.model.QuestionModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +52,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         init();
         loadData();
+        setBookMark();
         reAttemptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +75,26 @@ public class ScoreActivity extends AppCompatActivity {
         });
         saveResult();
     }
+
+    private void setBookMark() {
+
+        for(int i = 0; i<dbQuery.g_questionList.size(); i++){
+
+            QuestionModel question =  dbQuery.g_questionList.get(i);
+            if(question.isBookMarked()){
+                if(!(dbQuery.g_bmIdList.contains(question.getQuesID()))){
+                    dbQuery.g_bmIdList.add(question.getQuesID());
+                    dbQuery.myProfile.setBookmarkCount(dbQuery.g_bmIdList.size());
+                }
+            }else{
+                if(dbQuery.g_bmIdList.contains(question.getQuesID())){
+                    dbQuery.g_bmIdList.remove(question.getQuesID());
+                    dbQuery.myProfile.setBookmarkCount(dbQuery.g_bmIdList.size());
+                }
+            }
+        }
+    }
+
     private void saveResult() {
             dbQuery.saveResult(finalScore, new myCompleteListner() {
                 @Override

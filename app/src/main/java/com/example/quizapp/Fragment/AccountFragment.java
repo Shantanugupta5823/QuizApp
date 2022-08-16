@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.BookMarkActivity;
 import com.example.quizapp.DataBase.dbQuery;
 import com.example.quizapp.LoginActivity;
 import com.example.quizapp.MainActivity;
@@ -131,7 +132,8 @@ public class AccountFragment extends Fragment {
         bookmarksB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), BookMarkActivity.class);
+                startActivity(intent);
             }
         });
 

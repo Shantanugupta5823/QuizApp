@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -120,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setSelectedItemId(R.id.nav_account);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
+
+            case R.id.drawer_bookmark:
+                Intent intent = new Intent(MainActivity.this,BookMarkActivity.class);
+                drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+
         }
         return false;
     }
