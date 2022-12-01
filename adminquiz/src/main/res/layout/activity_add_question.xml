@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddQuestion">
+
+
+       <LinearLayout
+           android:id="@+id/ll"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_margin="25dp"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           android:background="#E1F6FF"
+           app:layout_constraintTop_toTopOf="parent">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Select Subject"
+               android:textSize="28sp"
+               android:textColor="@color/black"
+               />
+           <RadioGroup
+               android:id="@+id/radioGrp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <RadioButton
+                   android:id="@+id/maths"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Maths"
+                   android:textSize="24sp"/>
+               <RadioButton
+                   android:id="@+id/english"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="English"
+                   android:textSize="24sp"/>
+
+               <RadioButton
+                   android:id="@+id/hindi"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Hindi"
+                   android:textSize="24sp"/>
+           </RadioGroup>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Test_ID"
+               android:textSize="24sp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/Test_id"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Question"
+               android:textSize="24sp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/black"/>
+           <EditText
+                android:id="@+id/question"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Option 1"
+               android:textSize="24sp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/option1"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Option 2"
+               android:textSize="24sp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/option2"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Option 3"
+               android:textSize="24sp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/option3"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Option 4"
+               android:textSize="24sp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/option4"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:layout_marginBottom="20dp"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Correct option"
+               android:textSize="24sp"
+               android:textColor="@color/black"/>
+           <EditText
+               android:id="@+id/correctOption"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="20sp"
+               android:inputType="number"
+               android:layout_marginBottom="20dp"/>
+       </LinearLayout>
+       <Button
+           android:id="@+id/submitbutton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/ll"
+           android:layout_margin="20dp"
+           android:backgroundTint="@color/white"
+           android:text="SUBMIT"
+           android:textSize="30dp"
+           android:textColor="@color/black"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

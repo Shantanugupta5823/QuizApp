@@ -200,7 +200,6 @@ public class dbQuery {
                             String catID = catListDoc.getString("Cat"+String.valueOf(i)+"_ID");
                             QueryDocumentSnapshot catDoc = doclist.get(catID);
                             int noOfTests = catDoc.getLong("No_Of_Tests").intValue();
-                            Log.d("NoOfTEsts",String.valueOf(noOfTests));
                             String categoryName  = catDoc.getString("Name ");
                             g_catList.add(new categoryModel(catID,categoryName,noOfTests));
                         }
@@ -213,19 +212,21 @@ public class dbQuery {
                         completeListner.onFailure();
                     }
                 });
+
+
+
     }
 
     public static void loadTestData(final myCompleteListner completeListner){
         g_testList.clear();
         g_firestore.collection("Quiz ").document(g_catList.get(g_selectedCatIndex).getDocID())
-                .collection("Test_List").document("Tests_Info")
+                .collection("Test_List").document("Test_Info")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         int noOfTests = g_catList.get(g_selectedCatIndex).getNoOfTest();
                         for(int i = 1; i<= noOfTests; i++){
-
                             g_testList.add(new TestModel(
                                     documentSnapshot.getString("Test"+String.valueOf(i)+"_ID"),
                                     0,
@@ -304,17 +305,19 @@ public class dbQuery {
     }
 
     public static void loadQuestions(myCompleteListner completeListner){
+
         g_questionList.clear();
+        Log.d("Hello",g_catList.get(g_selectedCatIndex).getDocID());
+        Log.d("Hello",g_testList.get(g_SelectedTestIndex).getTestId());
         g_firestore.collection("Questions")
                 .whereEqualTo("Category_ID",g_catList.get(g_selectedCatIndex).getDocID())
-                .whereEqualTo("Test_ID",g_testList.get(g_SelectedTestIndex).getTestId())
-                .get()
+                .whereEqualTo("Test_ID",g_testList.get(g_SelectedTestIndex).getTestId()).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(DocumentSnapshot doc : queryDocumentSnapshots){
+                        for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
                             boolean isBookMarked = false;
-                            if (g_bmIdList.contains(doc.getId())){
+                            if (g_bmIdList.contains(doc.getId())) {
                                 isBookMarked = true;
                             }
                             g_questionList.add(new QuestionModel(
@@ -327,6 +330,7 @@ public class dbQuery {
                                     doc.getLong("Answer").intValue(),
                                     -1,NOT_VISITED,isBookMarked
                             ));
+                            Log.d("Hello",doc.getId());
                         }
                         completeListner.onSuccess();
                     }
@@ -334,10 +338,9 @@ public class dbQuery {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull @NotNull Exception e) {
-                        completeListner.onFailure();
+                        Log.d("Hello","Loading Test Failed");
                     }
                 });
-
     }
 
     public static void loadMyScore(myCompleteListner completeListner){
