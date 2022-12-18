@@ -2,14 +2,21 @@ package com.example.adminquiz;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.adminquiz.DataBase.DB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText loginEmail, loginPassword, loginKey;
     Button loginButton;
     private FirebaseAuth mAuth;
+    private int backpress;
+    private int currentApiVersion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private boolean validateData() {
@@ -65,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         String keyStr = loginKey.getText().toString().trim();
 
         if(keyStr.equals("4564")){
-            mAuth.signInWithEmailAndPassword(emailStr, passStr)
+            mAuth.signInWithEmailAndPassword("shantanugupta471@gmail.com", "Shan@123")
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
@@ -91,6 +102,15 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }else{
             Toast.makeText(LoginActivity.this, "Not a teacher, close this application", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backpress++;
+        Toast.makeText(this, "Press again to leave", Toast.LENGTH_SHORT).show();
+        if(backpress>1){
+            this.finish();
         }
     }
 }

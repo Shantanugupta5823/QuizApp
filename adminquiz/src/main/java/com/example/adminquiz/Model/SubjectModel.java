@@ -1,4 +1,4 @@
-package com.example.adminquiz;
+package com.example.adminquiz.Model;
 
 public class SubjectModel {
 
