@@ -228,9 +228,9 @@ public class dbQuery {
                         int noOfTests = g_catList.get(g_selectedCatIndex).getNoOfTest();
                         for(int i = 1; i<= noOfTests; i++){
                             g_testList.add(new TestModel(
-                                    documentSnapshot.getString("Test"+String.valueOf(i)+"_ID"),
-                                    0,
-                                    documentSnapshot.getLong("Test"+String.valueOf(i)+"_Time").intValue()
+                                    documentSnapshot.getString("Test_"+String.valueOf(i)+"_ID"),
+                                    Integer.valueOf(String.valueOf(documentSnapshot.getLong("Test_" + String.valueOf(i) + "_MaxScore"))),
+                                    documentSnapshot.getLong("Test_"+String.valueOf(i)+"_Time").intValue()
                             ));
 
                         }
@@ -305,10 +305,7 @@ public class dbQuery {
     }
 
     public static void loadQuestions(myCompleteListner completeListner){
-
         g_questionList.clear();
-        Log.d("Hello",g_catList.get(g_selectedCatIndex).getDocID());
-        Log.d("Hello",g_testList.get(g_SelectedTestIndex).getTestId());
         g_firestore.collection("Questions")
                 .whereEqualTo("Category_ID",g_catList.get(g_selectedCatIndex).getDocID())
                 .whereEqualTo("Test_ID",g_testList.get(g_SelectedTestIndex).getTestId()).get()
@@ -330,7 +327,6 @@ public class dbQuery {
                                     doc.getLong("Answer").intValue(),
                                     -1,NOT_VISITED,isBookMarked
                             ));
-                            Log.d("Hello",doc.getId());
                         }
                         completeListner.onSuccess();
                     }
