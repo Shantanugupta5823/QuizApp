@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -74,6 +75,7 @@ public class SubjectsAdapter extends BaseAdapter {
                  no = dialog.findViewById(R.id.noButton);
 
                  dialog.show();
+
                  no.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
@@ -89,13 +91,14 @@ public class SubjectsAdapter extends BaseAdapter {
                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
                                       @Override
                                       public void onSuccess(Void unused) {
+
                                            Log.d("Hello","Subject Deleted");
                                       }
                                   })
                                   .addOnFailureListener(new OnFailureListener() {
                                       @Override
                                       public void onFailure(@NonNull @NotNull Exception e) {
-                                          Log.d("Hello","Subject Couldn't be deleted");
+
                                       }
                                   });
 
@@ -122,6 +125,9 @@ public class SubjectsAdapter extends BaseAdapter {
                                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                       @Override
                                                       public void onSuccess(Void unused) {
+                                                          subjectList.remove(position);
+                                                          notifyDataSetChanged();
+                                                          dialog.dismiss();
                                                           Log.d("Hello","changes done ");
                                                       }
                                                   })
@@ -136,7 +142,8 @@ public class SubjectsAdapter extends BaseAdapter {
                                   .addOnFailureListener(new OnFailureListener() {
                                       @Override
                                       public void onFailure(@NonNull @NotNull Exception e) {
-
+                                          dialog.dismiss();
+                                          Toast.makeText(view.getContext(), "Subject Couldn't be deleted", Toast.LENGTH_SHORT).show();
                                       }
                                   });
 

@@ -99,7 +99,6 @@ public class TestAdapter extends BaseAdapter {
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         DB.g_firestore.collection("Quiz ")
                                 .document(DB.g_catList.get(DB.g_selectedSubjectIndex).getDocID())
                                 .get()
@@ -108,13 +107,24 @@ public class TestAdapter extends BaseAdapter {
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         long count = documentSnapshot.getLong("No_Of_Tests");
                                         count = count-1;
-
                                         Map<String,Object> map = new ArrayMap<>();
                                         map.put("No_Of_Tests",count);
-
+                                        DB.g_catList.get(DB.g_selectedSubjectIndex).setNoOfTests((int) count);
                                         DB.g_firestore.collection("Quiz ")
                                                 .document(DB.g_catList.get(DB.g_selectedSubjectIndex).getDocID())
-                                                .update(map);
+                                                .update(map)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull @NotNull Exception e) {
+
+                                                    }
+                                                });
                                     }
 
                                 })

@@ -65,11 +65,11 @@ public class SubjectsPage extends AppCompatActivity {
         addSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                newSub.setText("");
                 addSubDialog.show();
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         addSubDialog.dismiss();
                     }
                 });

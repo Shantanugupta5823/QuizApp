@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,5 +99,23 @@ public class TestActivity extends AppCompatActivity {
             }
         });
         
+    }
+
+    @Override
+    public void onBackPressed() {
+        DB.loadCategories(new myCompleteListener() {
+            @Override
+            public void onSuccess() {
+                Intent intent =  new Intent(TestActivity.this,SubjectsPage.class);
+                TestActivity.this.finish();
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure() {
+                TestActivity.super.onBackPressed();
+            }
+        });
+
     }
 }

@@ -244,8 +244,7 @@ public class DB {
         map.put("D",optionD);
         map.put("Answer",correctOption);
         map.put("Category_ID",g_catList.get(g_selectedSubjectIndex).getDocID());
-        map.put("Test_ID",g_testList.get(g_selectTestIndex).getTestId());
-
+        map.put("Test_ID","Test_"+(g_catList.get(g_selectedSubjectIndex).getNoOfTests()+1));
 
         g_firestore.collection("Questions").add(map)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
