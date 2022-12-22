@@ -11,6 +11,10 @@ In this project we have developed two different Mobile Applications (Android)
     1. Quiz App
     2. Adimn Panel 
     
- "Quiz App" Application can be accessed by creating your own profile.
- "Admin Panel" is not available for general public use for saftey.
+ 
+ Technologies Used :
+  1. Android Studio
+  2. Java (Backend,connectivity and logic of front-end).
+  3. XML (Developing UI).
+  4. Google Firebase(As remote Database server and Login Adminsitator).
  
